@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
 
@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
         val resultsView = findViewById<TextView>(R.id.ResultsText)
         val queue = Volley.newRequestQueue(this)
         val searchTerm = findViewById<EditText>(R.id.MovieNameForm).text
-        val url = "http://www.omdbapi.com/?apikey=${BuildConfig.OMBD_KEY}&t=${searchTerm}"
+        val url = "https://www.omdbapi.com/?apikey=${BuildConfig.OMBD_KEY}&t=${searchTerm}"
 
 
-        val stringRequest = StringRequest(Request.Method.GET, url,
+        val stringRequest = JsonObjectRequest(Request.Method.GET, url, null,
             { res ->
-                resultsView.text = "The response was ${res.substring(0, 500)}" },
+                resultsView.text = "The response was ${res["Title"]}" },
             { resultsView.text = "Error, Request failed" })
         queue.add(stringRequest)
     }
