@@ -33,9 +33,13 @@ class MainActivity : AppCompatActivity() {
 
         val stringRequest = JsonObjectRequest(Request.Method.GET, url, null,
             { res ->
-                resultsTitleText.text = res["Title"].toString()
-                resultsYearText.text = res["Year"].toString()
-                Picasso.get().load(res["Poster"].toString()).into(resultsPosterImg)
+                if(res["Response"] == "False") {
+                    resultsTitleText.text = res["Error"].toString()
+                } else {
+                    resultsTitleText.text = res["Title"].toString()
+                    resultsYearText.text = res["Year"].toString()
+                    Picasso.get().load(res["Poster"].toString()).into(resultsPosterImg)
+                }
             },
             { resultsTitleText.text = "Error, Request failed" })
         queue.add(stringRequest)
