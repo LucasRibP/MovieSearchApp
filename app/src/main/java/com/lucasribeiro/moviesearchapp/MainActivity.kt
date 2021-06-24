@@ -11,6 +11,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
+import kotlin.reflect.typeOf
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,18 +29,19 @@ class MainActivity : AppCompatActivity() {
         val resultsPosterImg = findViewById<ImageView>(R.id.resultsPosterImg)
         val queue = Volley.newRequestQueue(this)
         val searchTerm = findViewById<EditText>(R.id.MovieNameForm).text
-        val url = "https://www.omdbapi.com/?apikey=${BuildConfig.OMBD_KEY}&t=${searchTerm}"
+        val url = "https://www.omdbapi.com/?apikey=${BuildConfig.OMBD_KEY}&s=${searchTerm}"
 
 
         val stringRequest = JsonObjectRequest(Request.Method.GET, url, null,
             { res ->
-                if(res["Response"] == "False") {
-                    resultsTitleText.text = res["Error"].toString()
-                } else {
-                    resultsTitleText.text = res["Title"].toString()
-                    resultsYearText.text = res["Year"].toString()
-                    Picasso.get().load(res["Poster"].toString()).into(resultsPosterImg)
-                }
+                println(res["Search"])
+            //    if(res["Response"] == "False") {
+          //          resultsTitleText.text = res["Error"].toString()
+        //        } else {
+      //              resultsTitleText.text = res["Title"].toString()
+    //                resultsYearText.text = res["Year"].toString()
+  //                  Picasso.get().load(res["Poster"].toString()).into(resultsPosterImg)
+//                }
             },
             { resultsTitleText.text = "Error, Request failed" })
         queue.add(stringRequest)
