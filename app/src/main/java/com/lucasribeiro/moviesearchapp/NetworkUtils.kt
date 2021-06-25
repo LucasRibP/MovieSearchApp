@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkUtils {
     companion object{
-        /** Returns an instance of a Retrofit clinet for requests
+        /** Returns an instance of a Retrofit client for requests
          * @param path Main Path for the API
          */
         fun getRetrofitInstance(path : String) : Retrofit {
